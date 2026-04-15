@@ -1,3 +1,6 @@
+> **Note:** This repository preserves the `snp-latest` branch of [AMDESE/AMDSEV](https://github.com/AMDESE/AMDSEV),
+> which is no longer available on the upstream GitHub. It is archived here for reference.
+
 ## Overview
 
 This repo will build host/guest kernel, QEMU, and OVMF packages that are known to work in conjunction with the latest development trees for SNP host/hypervisor support. The build scripts will utilize the latest published [development tree for the SNP host kernel](https://github.com/amdese/linux/tree/snp-host-latest), which will generally correspond to the latest patchset posted upstream along with fixes/changes on top resulting from continued development/testing and upstream review. It will also utilize the latest published [development tree for QEMU](https://github.com/amdese/qemu/tree/snp-latest).
