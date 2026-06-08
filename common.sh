@@ -171,7 +171,7 @@ build_install_ovmf()
 	fi
 
 	BUILD_CMD="nice build -q --cmd-len=64436 -DDEBUG_ON_SERIAL_PORT=TRUE -n $(getconf _NPROCESSORS_ONLN) ${GCCVERS:+-t $GCCVERS} -a X64 -p OvmfPkg/OvmfPkgX64.dsc"
-
+	BUILD_DIRECTBOOT_CMD="nice build -q --cmd-len=64436 -DDEBUG_ON_SERIAL_PORT=TRUE -n $(getconf _NPROCESSORS_ONLN) ${GCCVERS:+-t $GCCVERS} -a X64 -p OvmfPkg/AmdSev/AmdSevX64.dsc"
 	# initialize git repo, or update existing remote to currently configured one
 	if [ -d ovmf ]; then
 		pushd ovmf >/dev/null
@@ -196,11 +196,12 @@ build_install_ovmf()
 		run_cmd make -C BaseTools -j $(getconf _NPROCESSORS_ONLN)
 		. ./edksetup.sh --reconfig
 		run_cmd $BUILD_CMD
-
+		run_cmd $BUILD_DIRECTBOOT_CMD
 		mkdir -p $DEST
 		run_cmd cp -f Build/OvmfX64/DEBUG_$GCCVERS/FV/OVMF_CODE.fd $DEST
 		run_cmd cp -f Build/OvmfX64/DEBUG_$GCCVERS/FV/OVMF_VARS.fd $DEST
 		run_cmd cp -f Build/OvmfX64/DEBUG_$GCCVERS/FV/OVMF.fd $DEST
+		run_cmd cp -f Build/AmdSev/DEBUG_$GCCVERS/FV/OVMF.fd $DEST/DIRECT_BOOT_OVMF.fd
 
 		COMMIT=$(git log --format="%h" -1 HEAD)
 		run_cmd echo $COMMIT >../source-commit.ovmf
