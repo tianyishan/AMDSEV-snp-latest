@@ -198,6 +198,7 @@ build_install_ovmf()
 		run_cmd $BUILD_CMD
 		run_cmd $BUILD_DIRECTBOOT_CMD
 		mkdir -p $DEST
+		run_cmd touch OvmfPkg/AmdSev/Grub/grub.efi
 		run_cmd cp -f Build/OvmfX64/DEBUG_$GCCVERS/FV/OVMF_CODE.fd $DEST
 		run_cmd cp -f Build/OvmfX64/DEBUG_$GCCVERS/FV/OVMF_VARS.fd $DEST
 		run_cmd cp -f Build/OvmfX64/DEBUG_$GCCVERS/FV/OVMF.fd $DEST
